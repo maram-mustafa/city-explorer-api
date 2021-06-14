@@ -1,8 +1,8 @@
 const express = require("express");
-const server = express();
 const weatherData = require("./assets/weather.json");
-
 const cors = require("cors");
+const server = express();
+
 server.use(cors());
 
 const PORT = 3010;
@@ -35,6 +35,10 @@ server.get("/weather", (req, res) => {
   }
 
   res.send(result);
+});
+
+server.get("*", (req, res) => {
+  res.status(404).send("sorry, this page not found");
 });
 
 server.listen(PORT, () => {
