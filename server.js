@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const weatherData = require("./assets/weather.json");
 const cors = require("cors");
@@ -5,7 +6,7 @@ const server = express();
 
 server.use(cors());
 
-const PORT = 3010;
+const PORT = process.env.PORT;
 //to specify Root Route
 //localhost:3010/
 server.get("/", (req, res) => {
