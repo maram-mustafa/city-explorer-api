@@ -2,7 +2,8 @@ const express = require("express");
 const server = express();
 const weatherData = require("./assets/weather.json");
 
-// const cors = require("cors");
+const cors = require("cors");
+server.use(cors());
 
 const PORT = 3010;
 //to specify Root Route
