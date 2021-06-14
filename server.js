@@ -13,23 +13,27 @@ server.get("/", (req, res) => {
 
 //localhost:3010/weatherAll
 server.get("/weatherAll", (req, res) => {
-    res.send(weatherData);
-  });
+  res.send(weatherData);
+});
 
 //localhost:3010/weather?lat=..&lon=..&searchQuery=...
 server.get("/weather", (req, res) => {
-    let lat = req.query.lat;
-    let lon = req.query.lon;
-    let searchQuery = req.query.searchQuery;
+  let lat = req.query.lat;
+  let lon = req.query.lon;
+  let searchQuery = req.query.searchQuery;
 
-    let result =''
-    if(lat == weatherData.lat && lon == weatherData.lon && searchQuery == weatherData.city_name){
-        result = weatherData.data
-    }else{
-        result = 'error'
-    }
+  let result = "";
+  if (
+    lat == weatherData.lat &&
+    lon == weatherData.lon &&
+    searchQuery == weatherData.city_name
+  ) {
+    result = weatherData.data;
+  } else {
+    result = "error";
+  }
 
-    res.send(result)
+  res.send(result);
 });
 
 server.listen(PORT, () => {
