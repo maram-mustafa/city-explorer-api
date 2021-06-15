@@ -26,7 +26,7 @@ server.get("/weather", (req, res) => {
 
   class Data {
     constructor(item) {
-      (this.snow = item.snow),
+      (this.datetime = item.datetime),
         (this.description = item.weather.description);
     }
   }
@@ -34,7 +34,8 @@ server.get("/weather", (req, res) => {
   let result = weatherData
     .find((item) => {
       if (searchQuery == item.city_name) {
-        return item;``
+        return item;
+        ``;
       }
     })
     .data.map((item) => {
