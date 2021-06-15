@@ -26,7 +26,7 @@ server.get("/weather", (req, res) => {
 
   class Data {
     constructor(item) {
-      (this.data = item.snow),
+      (this.snow = item.snow),
         (this.description = item.weather.description);
     }
   }
