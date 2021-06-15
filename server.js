@@ -20,21 +20,26 @@ server.get("/weatherAll", (req, res) => {
 
 //localhost:3010/weather?lat=..&lon=..&searchQuery=...
 server.get("/weather", (req, res) => {
-  let lat = req.query.lat;
-  let lon = req.query.lon;
+  // let lat = req.query.lat;
+  // let lon = req.query.lon;
   let searchQuery = req.query.searchQuery;
 
-  let result = "";
-  if (
-    lat == weatherData.lat &&
-    lon == weatherData.lon &&
-    searchQuery == weatherData.city_name
-  ) {
-    result = weatherData.data;
-  } else {
-    result = "error";
+  class Data {
+    constructor(item) {
+      (this.data = item.datetime),
+        (this.description = item.weather.description);
+    }
   }
 
+  let result = weatherData
+    .find((item) => {
+      if (searchQuery == item.city_name) {
+        return item;``
+      }
+    })
+    .data.map((item) => {
+      return new Data(item);
+    });
   res.send(result);
 });
 
