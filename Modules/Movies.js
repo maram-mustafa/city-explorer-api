@@ -7,13 +7,14 @@ class MovieData {
   }
 }
 
+
 function moviesFunc(req, res) {
   //https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=${cityName}
 
   const key = process.env.MOVIE_KEY;
   let cityName = req.query.searchQuery;
-  let url = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=${cityName}`;
-
+  let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${cityName}`;
+  
   axios.get(url).then((response) => {
     console.log(response);
     let result = response.data.results.map((item) => {
