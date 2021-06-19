@@ -7,21 +7,32 @@ class MovieData {
   }
 }
 
+let movieMemory = {};
 
 function moviesFunc(req, res) {
-  //https://api.themoviedb.org/3/discover/movie?api_key=${key}&region=${cityName}
-
-  const key = process.env.MOVIE_KEY;
   let cityName = req.query.searchQuery;
-  let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${cityName}`;
-  
-  axios.get(url).then((response) => {
-    console.log(response);
-    let result = response.data.results.map((item) => {
-      return new MovieData(item);
-    });
-    res.send(result);
-  });
+  const key = process.env.MOVIE_KEY;
+
+  if (movieMemory[cityName] !== undefined) {
+    res.status(404).send(movieMemory[cityName]);
+  } else {
+    let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${cityName}`;
+
+    axios
+      .get(url)
+      .then((response) => {
+        console.log(response);
+        let result = response.data.results.map((item) => {
+          return new MovieData(item);
+        });
+        movieMemory[cityName] = result;
+        res.send(result);
+      })
+
+      .catch((error) => {
+        res.status(500).send("movies not found in this city");
+      });
+  }
 }
 
 module.exports = moviesFunc;
