@@ -29,7 +29,8 @@ function weatherTwo(req, res) {
   let url = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQuery}&key=${key}`;
 
   axios.get(url).then((response) => {
-    console.log(response.data);
+    // console.log(response.data);
+    
 
     let result = response.data.data.map((item) => {
       return new Data(item);

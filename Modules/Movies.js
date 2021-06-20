@@ -14,14 +14,15 @@ function moviesFunc(req, res) {
   const key = process.env.MOVIE_KEY;
 
   if (movieMemory[cityName] !== undefined) {
-    res.status(404).send(movieMemory[cityName]);
+    res.send(movieMemory[cityName]);
+    console.log("get data from memory");
   } else {
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=${cityName}`;
-
+    console.log("get data from API");
     axios
       .get(url)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         let result = response.data.results.map((item) => {
           return new MovieData(item);
         });
